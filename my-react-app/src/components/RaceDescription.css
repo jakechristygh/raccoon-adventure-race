@@ -1,0 +1,17 @@
+.race-description {
+  max-width: 900px;
+  margin: 60px auto 40px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.race-description h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.race-description p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #444;
+}

@@ -1,0 +1,62 @@
+.race-options {
+  display: flex;
+  gap: 40px;
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.race-card {
+  background: #f4f4f4;
+  padding: 40px;
+  border-radius: 12px;
+  flex: 1;
+  min-width: 280px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.race-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.race-legs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.race-legs li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.race-legs li:last-child {
+  border-bottom: none;
+}
+
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background: #8d0808;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .race-options {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
