@@ -11,9 +11,8 @@ function Navbar() {
         </Link>
       </div>
       <ul className="nav-links">
-        <li><Link to="/register">Register</Link></li>
-        <li><Link to="/about">About</Link></li>
         <li><Link to="/race-info">Race Info</Link></li>
+        <li><Link to="/register">Register</Link></li>
         <li><Link to="/results">Results</Link></li>
       </ul>
     </nav>
