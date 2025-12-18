@@ -30,7 +30,7 @@ const mockResults = [
     age_group: "30–39",
     sup_time: "0:45:00",
     run_time: "1:16:09",
-    arrow_points: 2
+    arrow_points: 10
   }
 ];
 

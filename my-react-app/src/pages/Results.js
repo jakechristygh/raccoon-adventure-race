@@ -27,12 +27,32 @@ const calculateTotalTime = (sup_time, run_time) => {
   return secondsToTime(totalSeconds);
 };
 
+const calculateFinalSeconds = (sup_time, run_time, arrow_points) => {
+  const totalSeconds =
+    timeToSeconds(sup_time) + timeToSeconds(run_time);
+
+  return Math.max(totalSeconds - arrow_points * 60, 0);
+};
+
+
 function Results() {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
     setResults(mockResults);
   }, []);
+
+const sortedResults = [...results]
+  .map((r) => ({
+    ...r,
+    finalSeconds: calculateFinalSeconds(
+      r.sup_time,
+      r.run_time,
+      r.arrow_points
+    ),
+  }))
+  .sort((a, b) => a.finalSeconds - b.finalSeconds);
+
 
   return (
     <div className="results-page">
@@ -49,25 +69,28 @@ function Results() {
             <th>Total Time</th>
             <th>Arrow Pts</th>
             <th>Final Time</th>
+            <th>Place</th>
+
           </tr>
         </thead>
+
         <tbody>
-          {results.map((r) => {
-            
-            return (
-              <tr key={r.id}>
-                <td>{r.first_name} {r.last_name}</td>
-                <td>{r.gender}</td>
-                <td>{r.age_group}</td>
-                <td>{r.sup_time}</td>
-                <td>{r.run_time}</td>
-                <td>{calculateTotalTime(r.sup_time, r.run_time)}</td>
-                <td>{r.arrow_points}</td>
-                <td>{calculateFinalTime(r.sup_time, r.run_time, r.arrow_points)}</td>
-              </tr>
-            );
-          })}
+          {sortedResults.map((r, index) => (
+            <tr key={r.id}>
+              <td>{r.first_name} {r.last_name}</td>
+              <td>{r.gender}</td>
+              <td>{r.age_group}</td>
+              <td>{r.sup_time}</td>
+              <td>{r.run_time}</td>
+              <td>{calculateTotalTime(r.sup_time, r.run_time)}</td>
+              <td>{r.arrow_points}</td>
+              <td>{secondsToTime(r.finalSeconds)}</td>
+              <td>{index + 1}</td>  
+
+            </tr>
+          ))}
         </tbody>
+
       </table>
     </div>
   );
