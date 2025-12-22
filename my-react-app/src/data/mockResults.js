@@ -21,6 +21,17 @@ const mockResults = [
     run_time: "1:11:03",
     arrow_points: 0,
   },
+   {
+    id: 4,
+    position: 4,
+    first_name: "Rex",
+    last_name: "Christy",
+    gender: "Male",
+    age_group: "60–69",
+    sup_time: "1:00:00",
+    run_time: "2:00:00",
+    arrow_points: 30,
+  },
   {
     id: 2,
     position: 2,
