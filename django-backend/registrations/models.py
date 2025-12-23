@@ -52,3 +52,31 @@ class Registration(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
+class Result(models.Model):
+    registration = models.ForeignKey(
+        Registration,
+        on_delete=models.CASCADE,
+        related_name="results"
+    )
+
+    sup_seconds = models.PositiveIntegerField(help_text="SUP time in seconds")
+    run_seconds = models.PositiveIntegerField(help_text="Run time in seconds")
+    arrow_points = models.PositiveIntegerField(default=0)
+
+    total_seconds = models.PositiveIntegerField(editable=False)
+    final_seconds = models.PositiveIntegerField(editable=False)
+
+    def save(self, *args, **kwargs):
+        # Calculate total time
+        self.total_seconds = self.sup_seconds + self.run_seconds
+
+        # Calculate final time (arrow points = minutes off)
+        self.final_seconds = max(
+            self.total_seconds - (self.arrow_points * 60),
+            0
+        )
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.registration} — {self.final_seconds}s"
