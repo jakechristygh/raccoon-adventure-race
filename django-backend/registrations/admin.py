@@ -11,9 +11,17 @@ class RegistrationAdmin(admin.ModelAdmin):
 class ResultAdmin(admin.ModelAdmin):
     list_display = (
         "registration",
-        "sup_seconds",
-        "run_seconds",
-        "arrow_points",
-        "total_seconds",
+        "total_seconds",   
         "final_seconds",
+        "overall_place",
+        "gender_place",
+        "age_group_place",
     )
+
+    readonly_fields = (
+        "overall_place",
+        "gender_place",
+        "age_group_place",
+    )
+
+    ordering = ("overall_place",)

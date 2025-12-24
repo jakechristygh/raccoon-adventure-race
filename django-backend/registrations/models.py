@@ -52,6 +52,43 @@ class Registration(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
+def recalculate_places():
+    results = list(
+        Result.objects
+        .select_related("registration")
+        .order_by("final_seconds", "id")
+    )
+
+    # Overall place
+    for index, result in enumerate(results, start=1):
+        result.overall_place = index
+
+    # Gender place
+    gender_counters = {}
+    for result in results:
+        gender = result.registration.gender
+        gender_counters.setdefault(gender, 0)
+        gender_counters[gender] += 1
+        result.gender_place = gender_counters[gender]
+
+    # Age group place
+    age_group_counters = {}
+    for result in results:
+        age_group = result.registration.age_group
+        if age_group is None:
+            result.age_group_place = None
+            continue
+
+        age_group_counters.setdefault(age_group, 0)
+        age_group_counters[age_group] += 1
+        result.age_group_place = age_group_counters[age_group]
+
+    Result.objects.bulk_update(
+        results,
+        ["overall_place", "gender_place", "age_group_place"]
+    )
+
+
 class Result(models.Model):
     registration = models.ForeignKey(
         Registration,
@@ -66,17 +103,21 @@ class Result(models.Model):
     total_seconds = models.PositiveIntegerField(editable=False)
     final_seconds = models.PositiveIntegerField(editable=False)
 
-    def save(self, *args, **kwargs):
-        # Calculate total time
-        self.total_seconds = self.sup_seconds + self.run_seconds
+    overall_place = models.PositiveIntegerField(null=True, blank=True)
+    gender_place = models.PositiveIntegerField(null=True, blank=True)
+    age_group_place = models.PositiveIntegerField(null=True, blank=True)
 
-        # Calculate final time (arrow points = minutes off)
+
+    def save(self, *args, **kwargs):
+        self.total_seconds = self.sup_seconds + self.run_seconds
         self.final_seconds = max(
             self.total_seconds - (self.arrow_points * 60),
             0
         )
 
         super().save(*args, **kwargs)
+        recalculate_places()
+
 
     def __str__(self):
         return f"{self.registration} — {self.final_seconds}s"
