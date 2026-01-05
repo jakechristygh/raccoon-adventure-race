@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'registrations',
+    'rest_framework',
+    # 'race_backend',
 
 
 ]
