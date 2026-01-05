@@ -25,3 +25,7 @@ class ResultAdmin(admin.ModelAdmin):
     )
 
     ordering = ("overall_place",)
+
+    list_filter = (
+        "registration__gender",
+    )

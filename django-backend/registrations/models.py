@@ -47,6 +47,13 @@ class Registration(models.Model):
             return "60-69"
         else:
             return "70+"
+        
+    @property
+    def age_group_label(self):
+        if self.age_group is None:
+            return None
+        return f"{self.gender} {self.age_group}"
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -75,13 +82,19 @@ def recalculate_places():
     age_group_counters = {}
     for result in results:
         age_group = result.registration.age_group
+        gender = result.registration.gender
+
         if age_group is None:
             result.age_group_place = None
             continue
 
-        age_group_counters.setdefault(age_group, 0)
-        age_group_counters[age_group] += 1
-        result.age_group_place = age_group_counters[age_group]
+        key = (gender, age_group)
+
+        age_group_counters.setdefault(key, 0)
+        age_group_counters[key] += 1
+
+        result.age_group_place = age_group_counters[key]
+
 
     Result.objects.bulk_update(
         results,
@@ -110,13 +123,10 @@ class Result(models.Model):
 
     def save(self, *args, **kwargs):
         self.total_seconds = self.sup_seconds + self.run_seconds
-        self.final_seconds = max(
-            self.total_seconds - (self.arrow_points * 60),
-            0
-        )
-
+        self.final_seconds = self.total_seconds - (self.arrow_points * 60)
+        
         super().save(*args, **kwargs)
-        recalculate_places()
+        recalculate_places()    
 
 
     def __str__(self):
