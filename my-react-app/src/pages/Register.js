@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Register.css";
+import Footer from "../components/Footer";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -63,98 +64,102 @@ function Register() {
   };
 
   return (
-    <div className="register-page">
-      <h2>Register</h2>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleSubmit}>
-        {/* Two-column row: First Name / Last Name */}
-        <div className="form-row">
-          <label>
-            First Name:
-            <input type="text" name="first_name" value={formData.first_name} onChange={handleChange} required />
-          </label>
-          <label>
-            Last Name:
-            <input type="text" name="last_name" value={formData.last_name} onChange={handleChange} required />
-          </label>
-        </div>
-
-        <label>
-          Email:
-          <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-        </label>
-        <label>
-          Confirm Email:
-          <input type="email" name="confirm_email" value={formData.confirm_email} onChange={handleChange} required />
-        </label>
-        <label>
-          Phone:
-          <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
-        </label>
-
-        <label>
-          Date of Birth:
-          <input type="date" name="dob" value={formData.dob} onChange={handleChange} required />
-        </label>
-
-        <label style={{ textAlign: "center"}}>
-
-          Gender
-          <div className="gender-options">
-            <label>
-              <input
-                type="radio"
-                name="gender"
-                value="Male"
-                checked={formData.gender === "Male"}
-                onChange={handleChange}
-                required
-              />
-              Male
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="gender"
-                value="Female"
-                checked={formData.gender === "Female"}
-                onChange={handleChange}
-                required
-              />
-              Female
-            </label>
-          </div>
-        </label>
-
-        {/* Address Group */}
-        <fieldset className="address-group">
-          <legend>Address Information</legend>
-          <label>
-            Address:
-            <input type="text" name="address" value={formData.address} onChange={handleChange} required />
-          </label>
-
-          {/* Two-column row: Country / State / Zip */}
+    <div>
+      <div className="register-page">
+        <h2>Register</h2>
+        {message && <p>{message}</p>}
+        <form onSubmit={handleSubmit}>
+          {/* Two-column row: First Name / Last Name */}
           <div className="form-row">
             <label>
-              Country:
-              <input type="text" name="country" value={formData.country} onChange={handleChange} required />
+              First Name:
+              <input type="text" name="first_name" value={formData.first_name} onChange={handleChange} required />
             </label>
             <label>
-              State:
-              <input type="text" name="state" value={formData.state} onChange={handleChange} required />
-            </label>
-            <label>
-              Zip Code:
-              <input type="text" name="zip_code" value={formData.zip_code} onChange={handleChange} required />
+              Last Name:
+              <input type="text" name="last_name" value={formData.last_name} onChange={handleChange} required />
             </label>
           </div>
-        </fieldset>
 
-        <button type="submit">Register</button>
-      </form>
+          <label>
+            Email:
+            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+          </label>
+          <label>
+            Confirm Email:
+            <input type="email" name="confirm_email" value={formData.confirm_email} onChange={handleChange} required />
+          </label>
+          <label>
+            Phone:
+            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
+          </label>
+
+          <label>
+            Date of Birth:
+            <input type="date" name="dob" value={formData.dob} onChange={handleChange} required />
+          </label>
+
+          <label style={{ textAlign: "center"}}>
+
+            Gender
+            <div className="gender-options">
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="Male"
+                  checked={formData.gender === "Male"}
+                  onChange={handleChange}
+                  required
+                />
+                Male
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="Female"
+                  checked={formData.gender === "Female"}
+                  onChange={handleChange}
+                  required
+                />
+                Female
+              </label>
+            </div>
+          </label>
+
+          {/* Address Group */}
+          <fieldset className="address-group">
+            <legend>Address Information</legend>
+            <label>
+              Address:
+              <input type="text" name="address" value={formData.address} onChange={handleChange} required />
+            </label>
+
+            {/* Two-column row: Country / State / Zip */}
+            <div className="form-row">
+              <label>
+                Country:
+                <input type="text" name="country" value={formData.country} onChange={handleChange} required />
+              </label>
+              <label>
+                State:
+                <input type="text" name="state" value={formData.state} onChange={handleChange} required />
+              </label>
+              <label>
+                Zip Code:
+                <input type="text" name="zip_code" value={formData.zip_code} onChange={handleChange} required />
+              </label>
+            </div>
+          </fieldset>
+
+          <button type="submit">Register</button>
+        </form>
+      </div>
+      <Footer /> 
     </div>
   );
+  
 }
 
 export default Register;
