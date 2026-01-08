@@ -3,6 +3,8 @@ import OverallTable from "../components/OverallTable";
 import GenderTable from "../components/GenderTable";
 import AgeGroupTable from "../components/AgeGroupTable";
 import "./Results.css";
+import Footer from "../components/Footer";
+
 
 function ResultsPage() {
   const [results, setResults] = useState([]);
@@ -15,18 +17,23 @@ function ResultsPage() {
   }, []);
 
   return (
-    <div className="leaderboard">
-      <h1 className="leaderboard h2">Race Results</h1>
-      <div className="filters">
-        <button onClick={() => setView("overall")}>Overall</button>
-        <button onClick={() => setView("gender")}>Gender</button>
-        <button onClick={() => setView("age_group")}>Age Group</button>
-      </div>
+    <div>
+      <div className="leaderboard">
+        <h1 className="leaderboard h2">Race Results</h1>
+        <div className="filters">
+          <button onClick={() => setView("overall")}>Overall</button>
+          <button onClick={() => setView("gender")}>Gender</button>
+          <button onClick={() => setView("age_group")}>Age Group</button>
+        </div>
 
-      {view === "overall" && <OverallTable results={results} />}
-      {view === "gender" && <GenderTable results={results} />}
-      {view === "age_group" && <AgeGroupTable results={results} />}
+        {view === "overall" && <OverallTable results={results} />}
+        {view === "gender" && <GenderTable results={results} />}
+        {view === "age_group" && <AgeGroupTable results={results} />}
+      </div> 
+      <Footer />  
+ 
     </div>
+    
   );
 }
 
