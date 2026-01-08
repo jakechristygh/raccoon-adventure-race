@@ -41,8 +41,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
-
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+    ],
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

@@ -29,11 +29,13 @@ function Register() {
       return;
     }
 
+    const {confirm_email, ...payload } = formData;
+
     try {
       const response = await fetch("http://localhost:8000/api/registrations/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (response.ok) {
