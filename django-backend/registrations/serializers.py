@@ -13,12 +13,16 @@ class RegistrationSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "email",
+            "phone",
+            "dob",
             "gender",
+            "address",
             "age",
             "age_group",
             "age_group_label",
             "country",
             "state",
+            "zip_code",
         ]
 
 
