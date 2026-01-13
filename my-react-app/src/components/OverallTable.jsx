@@ -1,9 +1,13 @@
 import { formatSeconds } from "../utils/time";
 
 function OverallTable({ results }) {
-  const sorted = [...results].sort(
-    (a, b) => a.overall_place - b.overall_place
-  );
+  console.log("OverallTable results:", results);
+
+  const sorted = [...results].sort((a, b) => {
+    const aPlace = a.results?.overallPlace ?? Infinity;
+    const bPlace = b.results?.overallPlace ?? Infinity;
+    return aPlace - bPlace;
+  });
 
   return (
     <table className="leaderboard-table">
@@ -15,21 +19,27 @@ function OverallTable({ results }) {
           <th>SUP</th>
           <th>Run</th>
           <th>Arrows</th>
-          <th>Final Seconds</th>
           <th>Final Time</th>
         </tr>
       </thead>
       <tbody>
         {sorted.map((r) => (
-          <tr key={r.id}>
-            <td>{r.overall_place}</td>
-            <td>{r.first_name} {r.last_name}</td>
-            <td>{r.gender} {r.age_group}</td>
-            <td>{r.sup_seconds}</td>
-            <td>{r.run_seconds}</td>
-            <td>{r.arrow_points}</td>
-            <td>{r.final_seconds}</td>
-            <td>{formatSeconds(r.final_seconds)}</td>
+          <tr key={r.racerId}>
+            <td>{r.results?.overallPlace ?? "--"}</td>
+            <td>
+              {r.registration.firstName} {r.registration.lastName}
+            </td>
+            <td>
+              {r.registration.gender} {r.registration.ageGroup}
+            </td>
+            <td>{r.results?.supSeconds ?? "--"}</td>
+            <td>{r.results?.runSeconds ?? "--"}</td>
+            <td>{r.results?.arrowPoints ?? "--"}</td>
+            <td>
+              {r.results?.finalSeconds != null
+                ? formatSeconds(r.results.finalSeconds)
+                : "--"}
+            </td>
           </tr>
         ))}
       </tbody>
