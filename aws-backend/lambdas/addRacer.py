@@ -1,9 +1,31 @@
 import json
 import boto3
+from datetime import date, datetime
 
 TABLE_NAME = "RegistrationResults"  # updated table with Number key
 dynamodb = boto3.resource("dynamodb")
 table = dynamodb.Table(TABLE_NAME)
+
+
+def calculate_age(dob_str):
+    dob = datetime.strptime(dob_str, "%Y-%m-%d").date()
+    today = date.today()
+    return today.year - dob.year - (
+        (today.month, today.day) < (dob.month, dob.day)
+    )
+
+def get_age_group(age):
+    if age < 20:
+        return "0-19"
+    if age < 30:
+        return "20-29"
+    if age < 40:
+        return "30-39"
+    if age < 50:
+        return "40-49"
+    if age < 60:
+        return "50-59"
+    return "60+"
 
 def lambda_handler(event, context):
     try:
@@ -21,6 +43,16 @@ def lambda_handler(event, context):
                 racer_id = max_id + 1
             else:
                 racer_id = 1  # first racer
+
+            registration = body.get("registration", {})
+
+            if "dob" in registration:
+                age = calculate_age(registration["dob"])
+                age_group = get_age_group(age)
+                registration["age"] = age
+                registration["ageGroup"] = age_group
+                registration["ageGroupLabel"] = f"{registration.get('gender')} {age_group}"
+
 
         # Prepare item for DynamoDB
         item = {

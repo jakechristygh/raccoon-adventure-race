@@ -23,64 +23,45 @@ function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (formData.email !== formData.confirm_email) {
-    setMessage("Emails do not match.");
-    return;
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.email !== formData.confirm_email) {
+      setMessage("Emails do not match.");
+      return;
+    }
 
-  const payload = {
-    registration: {
-      firstName: formData.first_name,
-      lastName: formData.last_name,
-      email: formData.email,
-      phone: formData.phone,
-      dob: formData.dob,
-      gender: formData.gender,
-      address: formData.address,
-      country: formData.country,
-      state: formData.state,
-      zipCode: formData.zip_code,
-    },
-    results: {} // empty on registration
-  };
+    const {confirm_email, ...payload } = formData;
 
-  try {
-    const response = await fetch(
-      "https://1n250bbi5b.execute-api.us-east-2.amazonaws.com/racers",
-      {
+    try {
+      const response = await fetch("http://localhost:8000/api/registrations/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        setMessage("Registration successful!");
+        setFormData({
+          first_name: "",
+          last_name: "",
+          email: "",
+          confirm_email: "",
+          phone: "",
+          dob: "",
+          gender: "",
+          address: "",
+          country: "",
+          state: "",
+          zip_code: "",
+        });
+      } else {
+        const data = await response.json();
+        setMessage("Error: " + JSON.stringify(data));
       }
-    );
-
-    if (!response.ok) {
-      const err = await response.text();
-      throw new Error(err);
+    } catch (error) {
+      setMessage("Network error: " + error.message);
     }
-
-    setMessage("Registration successful!");
-    setFormData({
-      first_name: "",
-      last_name: "",
-      email: "",
-      confirm_email: "",
-      phone: "",
-      dob: "",
-      gender: "",
-      address: "",
-      country: "",
-      state: "",
-      zip_code: "",
-    });
-
-  } catch (error) {
-    console.error("Registration error:", error);
-    setMessage("Error submitting registration.");
-  }
-};
+  };
 
   return (
     <div>
