@@ -1,6 +1,11 @@
 import json
 import boto3
+import os
 from datetime import date, datetime
+
+
+sns = boto3.client("sns")
+SNS_TOPIC_ARN = "arn:aws:sns:us-east-2:037678282356:raccoon-race-new-registration"
 
 TABLE_NAME = "RegistrationResults"  # updated table with Number key
 dynamodb = boto3.resource("dynamodb")
@@ -63,6 +68,22 @@ def lambda_handler(event, context):
 
         # Insert into DynamoDB
         table.put_item(Item=item)
+          # Send SNS notification
+        message = f"""
+        New Racer Registered 🏁
+
+        Name: {item['registration'].get('firstName')} {item['registration'].get('lastName')}
+        Email: {item['registration'].get('email')}
+        Gender: {item['registration'].get('gender')}
+        Age Group: {item['registration'].get('ageGroupLabel')}
+        Racer ID: {item['racerId']}
+        """
+
+        sns.publish(
+            TopicArn=SNS_TOPIC_ARN,
+            Subject="New Racer Registration",
+            Message=message
+        )
 
         return {
             "statusCode": 200,
@@ -70,6 +91,7 @@ def lambda_handler(event, context):
             "body": json.dumps({"message": "Racer added", "racerId": racer_id})
         }
 
+      
     except Exception as e:
         print("Error:", e)
         return {
