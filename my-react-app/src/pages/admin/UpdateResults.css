@@ -1,0 +1,102 @@
+.admin-page {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.admin-page h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.admin-page h3 {
+  margin-top: 25px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #444;
+}
+
+.admin-page label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+.admin-page select,
+.admin-page input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.admin-page select:focus,
+.admin-page input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.admin-page form {
+  margin-top: 15px;
+}
+
+.admin-page button {
+  width: 100%;
+  padding: 12px;
+  background-color: #160101;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.admin-page button:hover:not(:disabled) {
+  background-color: #dc1a1d;
+}
+
+.admin-page button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.admin-page p {
+  text-align: center;
+  font-size: 14px;
+  color: #d9534f;
+  margin-bottom: 15px;
+}
+
+/* Result input grouping */
+.results-group {
+  border: 1px solid #ccc;
+  padding: 15px 20px;
+  border-radius: 6px;
+  background-color: #fafafa;
+  margin-top: 15px;
+}
+
+.results-group legend {
+  font-weight: bold;
+  color: #333;
+  padding: 0 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .admin-page {
+    margin: 20px;
+    padding: 20px;
+  }
+}
