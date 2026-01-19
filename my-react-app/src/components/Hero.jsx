@@ -19,12 +19,6 @@ const Hero = () => {
     >
       <div className="hero-content">
         <h1>Raccoon Adventure Race</h1>
-        {/* <img
-           src="/images/sarah.jpg" // correct public folder path
-           alt="Raccoon Adventure Logo"
-          className="hero-logo"
-          style={{ width: "300px", marginTop: "20px" }}
-        /> */}
         <h2>Paddle - Run - Shoot</h2>
         <p>Raccoon River Park</p>
         <h3>May 23 2026  9:00 A.M.</h3>
