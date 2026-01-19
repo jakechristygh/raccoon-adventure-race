@@ -1,7 +1,6 @@
 import "./Logo.css";
 
 import legsLogo from "../assets/legslogo.png";
-import raccoonLogo from "../assets/raccoonlogo.png";
 import raccoonLogoGrey from "../assets/raccoonlogogrey.png";
 
 
