@@ -30,6 +30,25 @@ function UpdateResult() {
     );
   };
 
+  const deleteRacer = async (racerId) => {
+  if (!window.confirm("Delete this racer?")) return;
+
+  try {
+    const res = await fetch(
+      `${API_BASE}/racers/${racerId}`,
+      { method: "DELETE" }
+    );
+
+    if (!res.ok) throw new Error();
+
+    setRacers((prev) => prev.filter(r => r.racerId !== racerId));
+    setMessage("Racer deleted");
+  } catch {
+    setMessage("Failed to delete racer");
+  }
+};
+
+
   const saveResults = async (racer) => {
     setMessage("");
 
@@ -77,6 +96,7 @@ function UpdateResult() {
             <th>Run (sec)</th>
             <th>Arrows</th>
             <th>Save</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -119,6 +139,16 @@ function UpdateResult() {
               <td>
                 <button onClick={() => saveResults(r)}>Save</button>
               </td>
+
+              <td>
+                <button
+                  className="danger"
+                  onClick={() => deleteRacer(r.racerId)}
+                >
+                  Delete
+                </button>
+              </td>
+
             </tr>
           ))}
         </tbody>
