@@ -39,6 +39,7 @@ const handleSubmit = async (e) => {
       dob: formData.dob,
       gender: formData.gender,
       address: formData.address,
+      city: formData.city,
       country: formData.country,
       state: formData.state,
       zipCode: formData.zip_code,
@@ -150,10 +151,16 @@ const handleSubmit = async (e) => {
           {/* Address Group */}
           <fieldset className="address-group">
             <legend>Address Information</legend>
-            <label>
-              Address:
-              <input type="text" name="address" value={formData.address} onChange={handleChange} required />
-            </label>
+            <div className="form-row">
+              <label>
+                Address:
+                <input type="text" name="address" value={formData.address} onChange={handleChange} required />
+              </label>
+              <label>
+                City:
+                <input type="text" name="city" value={formData.city} onChange={handleChange} required />
+              </label>
+            </div>
 
             {/* Two-column row: Country / State / Zip */}
             <div className="form-row">
