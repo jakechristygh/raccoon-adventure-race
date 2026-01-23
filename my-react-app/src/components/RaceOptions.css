@@ -49,6 +49,30 @@ button {
   font-size: 16px;
 }
 
+
+
+.register-btn {
+  display: block;      
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;  
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+.register-btn:hover {
+  background: #222;
+}
+
+
 button:hover {
   background: #8d0808;
 }
