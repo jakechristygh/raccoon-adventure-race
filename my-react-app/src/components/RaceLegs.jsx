@@ -6,7 +6,7 @@ const legs = [
     name: "Paddle",
     description:
       "Starting at the boat house beach. Navigate your way thru the checkpoints and around the island, testing your balance, upper body, and core.",
-    generalImg: "/images/paddlemap.png",
+    generalImg: "/images/paddlemap6.png",
     mapImg: "/images/paddle.jpg",
   },
   {
