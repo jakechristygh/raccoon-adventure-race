@@ -19,7 +19,6 @@ function Home() {
       <RaceDescription />
       <RaceOptions />
       <RaceLegs />
-      <Sponsors /> 
       <Footer />   
     </div>
     
